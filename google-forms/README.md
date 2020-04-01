@@ -2,12 +2,18 @@ This code takes the exercises in our texbooks and generates Google Forms. There 
 
 # Overview
 
-We take the Single BakedHTML file for each book, find the exercises (using xslt), guess if they are multiple choice, write them out to JSON, upload to Google Drive, and run a Google Script to convert them into Forms.
+We take the Single BakedHTML file for each book, find the exercises (using XSLT), guess if they are multiple choice, write them out to JSON, upload to Google Drive, and run a Google Script to convert them into Forms.
+
+# Outputs
+
+- Google Drive with all the Forms
+- [Spreadsheet with conversion problems](https://docs.google.com/spreadsheets/d/1HZ1ZEiTbSzOXeY11QR-tu46kzimy1WihT9J0B2LG4cM/edit#gid=546143196) (manually updated)
 
 # Instructions
 
-1. baked books using cnx-recipes
-1. generate JSON from those books using saxon
+1. Install [saxon-HE](https://saxonica.com/download/java.xml) (`brew install saxon`)
+1. baked books using [cnx-recipes](https://github.com/openstax/cnx-recipes#create-a-baked-pdf-for-a-new-book)
+1. run `./extract-exercises.bash` which generates JSON from those books using XSLT
   - this also generates a CSV file with exercises that were not converted, or need images attached, or other problems
 1. upload the JSON files into Google Drive
 1. run a Google Script to convert the JSON files into Forms
@@ -17,4 +23,5 @@ We take the Single BakedHTML file for each book, find the exercises (using xslt)
 # Limitations
 
 - questions do not allow any formatting (not even subscripts). So we translate math as best we can to plain text and log int oa CSV file 
+- images are allowed but there does not seem to be a way to add them with the Google Forms API
 - ...
