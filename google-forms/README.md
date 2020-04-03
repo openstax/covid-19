@@ -15,9 +15,9 @@ We take the Single BakedHTML file for each book, find the exercises (using XSLT)
 1. baked books using [cnx-recipes](https://github.com/openstax/cnx-recipes#create-a-baked-pdf-for-a-new-book)
 1. run `./extract-exercises.bash` which generates JSON from those books using XSLT
   - this also generates a CSV file with exercises that were not converted, or need images attached, or other problems
-1. upload the JSON files into Google Drive
-1. run a Google Script to convert the JSON files into Forms
-1. repeat the last step because Google Scripts time out after ~~5~~ _30_ minutes
+1. upload the QuizForms directory to Google Drive
+1. upload the JSON files to a directory called exercises in QuizForms
+1. run the startGenerate function to generate Google Forms for each JSON file
 
 
 # Limitations
