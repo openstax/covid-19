@@ -9,6 +9,10 @@ We take the Single BakedHTML file for each book, find the exercises (using XSLT)
 - Google Drive with all the Forms
 - [Spreadsheet with conversion problems](https://docs.google.com/spreadsheets/d/1HZ1ZEiTbSzOXeY11QR-tu46kzimy1WihT9J0B2LG4cM/edit#gid=546143196) (manually updated)
 
+# Details
+
+[./docs.md](./docs.md) contains more in-depth information on how we solved the problem.
+
 # Instructions
 
 1. Install [saxon-HE](https://saxonica.com/download/java.xml) (`brew install saxon`)
