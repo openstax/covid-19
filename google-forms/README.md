@@ -28,4 +28,4 @@ We take the Single BakedHTML file for each book, find the exercises (using XSLT)
 
 - questions do not allow any formatting (not even subscripts). So we translate math as best we can to plain text and log int oa CSV file 
 - images are allowed but there does not seem to be a way to add them with the Google Forms API
-- ...
+- [...](./docs.md)
