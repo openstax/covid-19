@@ -82,7 +82,7 @@
       <j:number key="number"><xsl:value-of select="$exerciseNumber"/></j:number>
       <j:string key="type"><xsl:call-template name="defaultType"/></j:string>
       
-      <xsl:call-template name="stringifyOrReportWhyNot">
+      <xsl:call-template name="stringifyOrReportWhyNotJson">
         <xsl:with-param name="key">stem</xsl:with-param>
         <xsl:with-param name="context" select="$stemText"/>
         <xsl:with-param name="exerciseNumber" select="$exerciseNumber"/>
@@ -104,7 +104,7 @@
             <xsl:variable name="optionImages" select=".//h:img/@src"/>
 
             <j:map>
-              <xsl:call-template name="stringifyOrReportWhyNot">
+              <xsl:call-template name="stringifyOrReportWhyNotJson">
                 <xsl:with-param name="key">option</xsl:with-param>
                 <xsl:with-param name="context" select="$option"/>
                 <xsl:with-param name="exerciseNumber" select="$exerciseNumber"/>
@@ -127,17 +127,23 @@
           <xsl:apply-templates mode="stringify" select="$answerElement/*[@class='os-solution-container']/node()"><xsl:with-param tunnel="yes" name="exerciseNumber" select="$exerciseNumber"/></xsl:apply-templates>
         </xsl:variable>
 
-        <xsl:call-template name="stringifyOrReportWhyNot">
+        <xsl:call-template name="stringifyOrReportWhyNotJson">
           <xsl:with-param name="key">answer</xsl:with-param>
           <xsl:with-param name="context" select="$answer"/>
           <xsl:with-param name="exerciseNumber" select="$exerciseNumber"/>
         </xsl:call-template>
+
+        <xsl:call-template name="stringifyOrReportWhyNotRaw">
+          <xsl:with-param name="context" select="$answer"/>
+          <xsl:with-param name="exerciseNumber" select="$exerciseNumber"/>
+        </xsl:call-template>
+
       </xsl:if>
     </j:map>
   </xsl:template>
 
 
-  <xsl:template name="stringifyOrReportWhyNot">
+  <xsl:template name="stringifyOrReportWhyNotJson">
     <xsl:param name="key"/>
     <xsl:param name="context"/>
     <xsl:param name="chapterNumber" tunnel="yes"/>
@@ -166,6 +172,21 @@
     </j:string>
   </xsl:template>
 
+  <xsl:template name="stringifyOrReportWhyNotRaw">
+    <xsl:param name="context"/>
+    <xsl:param name="chapterNumber" tunnel="yes"/>
+    <xsl:param name="dataUuidKey" tunnel="yes"/>
+    <xsl:param name="exerciseNumber"/>
+
+    <xsl:choose>
+      <xsl:when test="$context[not(*)]">
+        <xsl:message>"{$bookName}", "{$dataUuidKey}", {$chapterNumber},{$exerciseNumber}, "ANSWER", "{normalize-space($context)}"</xsl:message>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:message>"{$bookName}", "{$dataUuidKey}", {$chapterNumber},{$exerciseNumber}, "FIX:UNCONVERTED_ANSWER", "{$context/*[1]/local-name()}"</xsl:message>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
   <xsl:template name="constructImage">
     <xsl:param name="key"/>
