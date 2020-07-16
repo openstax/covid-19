@@ -1,2 +1,2 @@
-./extract-exercises.bash ~/git/openstax/cnx-recipes/data/
+./extract-exercises.bash ~/books
 ./findAnswerRatio.sh

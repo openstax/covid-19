@@ -3,7 +3,7 @@
 		xmlns:m="http://www.w3.org/1998/Math/MathML"
                 version='1.0'>
                 
-<xsl:output method="text" indent="no" encoding="UTF-8"/>
+<!-- <xsl:output method="text" indent="no" encoding="UTF-8"/> -->
 
 <!-- ====================================================================== -->
 <!-- $id: mmltex.xsl, 2002/22/11 Exp $
