@@ -59,14 +59,15 @@
     </xsl:variable>
     
     <xsl:if test="$json//p:exercise">
-      <h:html>
-        <h:head>
-          <h:title>Practice Exercises for {$bookName}</h:title>
-        </h:head>
-        <h:body>
+      <html>
+        <head>
+          <title>Practice Exercises for {$bookName}</title>
+          <meta name="robots" content="noindex"/>
+        </head>
+        <body>
           <xsl:apply-templates mode="toWebpage" select="$json"/>
-        </h:body>
-      </h:html>
+        </body>
+      </html>
     </xsl:if>
   </xsl:template>
 
