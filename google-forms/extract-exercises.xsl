@@ -8,6 +8,7 @@
   xmlns:m="http://www.w3.org/1998/Math/MathML"
   xmlns:func="https://philschatz.com/xslt-functions"
   xmlns:p="https://philschatz.com/temporary-namespace"
+  exclude-result-prefixes="#all"
   expand-text="yes"
   version="3.0">
   
@@ -91,7 +92,7 @@
     <div itemscope="itemscope" itemtype="http://schema.org/Quiz">
       <h2>
         <span class="chapter-number">{@number}: </span>
-        <a itemprop="url" href="https://openstax.org/books/{$bookName}/pages/{$slug}?from=google-practice">
+        <a itemprop="url" href="https://openstax.org/books/{$bookName}/pages/{$slug}?utm_source=google-practice">
           <span itemprop="about">{@title}</span>
         </a>
       </h2>
@@ -121,31 +122,27 @@
       </xsl:choose>
     </xsl:variable>
 
-    <div itemprop="hasPart" itemscope="itemscope" itemtype="http://schema.org/PracticeProblem">
-      <meta itemprop="practiceProblemType" content="MultipleChoicePracticeProblem"/>
-
+    <div itemprop="hasPart" itemscope="itemscope" itemtype="http://schema.org/Question">
+      <meta itemprop="eduQuestionType" content="Multiple choice"/>
+      <meta itemprop="learningResourceType" content="Practice problem"/>
       <xsl:call-template name="setAgeSubjectAlignment"/>
-
-      <div itemprop="hasPart" itemscope="itemscope" itemtype="http://schema.org/Question">
-        <meta itemprop="encodingFormat" content="text/html"/>
-        <div itemprop="name">Choose the best answer</div>
-        <div itemprop="text">
-          <xsl:apply-templates mode="toWebpage" select="p:stem/node()"/>
-        </div>
-        <meta itemprop="acceptedAnswer" content="{$idPrefix}-{$number}-{$acceptedAnswerPosition}"/>
-        <xsl:comment><span>Accepted Answer: {$letter}</span></xsl:comment>
-
-        <ol type="A">
-          <xsl:for-each select="p:option">
-            <li id="{$idPrefix}-{$number}-{position()}" itemprop="suggestedAnswer" itemscope="itemscope" itemtype="http://schema.org/Answer">
-              <meta itemprop="encodingFormat" content="text/html"/>
-              <div itemprop="text">
-                <xsl:apply-templates mode="toWebpage" select="@*|node()"/>
-              </div>
-            </li>
-          </xsl:for-each>
-        </ol>
+      <meta itemprop="encodingFormat" content="text/html"/>
+      <div itemprop="name">Choose the best answer</div>
+      <div itemprop="text">
+        <xsl:apply-templates mode="toWebpage" select="p:stem/node()"/>
       </div>
+
+      <ol type="A">
+        <xsl:for-each select="p:option">
+          <xsl:variable name="itemprop" select="if ($acceptedAnswerPosition = position()) then 'acceptedAnswer' else 'suggestedAnswer'"/>
+          <li id="{$idPrefix}-{$number}-{position()}" itemprop="{$itemprop}" itemscope="itemscope" itemtype="http://schema.org/Answer">
+            <meta itemprop="encodingFormat" content="text/html"/>
+            <div itemprop="text">
+              <xsl:apply-templates mode="toWebpage" select="@*|node()"/>
+            </div>
+          </li>
+        </xsl:for-each>
+      </ol>
     </div>
 
   </xsl:template>
